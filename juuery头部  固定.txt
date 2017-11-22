@@ -1,0 +1,959 @@
+
+
+一.  一条导航在页面300在样式礼，超过500px固定在头部；
+
+
+$(window).scroll(function() {
+				if($(window).scrollTop() > 500) {
+					$('.nav_a').addClass('nav-fixed1');
+				} else {
+					$('.nav_a').removeClass('nav-fixed1');
+				}
+			});
+
+
+
+
+	.nav-fixed1 {
+		position: fixed;
+		top: 0px;
+		left: 0;
+		z-index: 9999;
+		display: block !important;
+	}
+
+
+
+
+	.nav_a {
+		position: relative;
+		width: 100%;
+		height: 45px;
+		padding-bottom: 5px;
+		background: #fff;
+		border-top: 1px solid #f0f0f0;
+		border-bottom: 1px solid #f0f0f0;
+	}
+	
+	.nav_a .mainmid {
+		width: 1040px;
+		height: 45px;
+		margin: 0 auto;
+	}
+	
+	.nav_a .mainmid .fr {
+		float: right !important;
+	}
+	
+	.nav_a .mainmid .fr a {
+		text-decoration: none;
+		color: #000;
+	}
+	
+	.nav_a .mainmid .fr li {
+		float: left;
+		margin: 0 20px;
+		line-height: 41px;
+	}
+	
+	.nav_a .on {
+		border-bottom: 2px solid #f53822;
+	}
+	
+
+
+
+
+二.导航点击时让它滑到相应的位置
+
+
+
+
+$(document).ready(function() {
+				var s = 0;
+				window.onscroll = function() {
+					s = $(this).scrollTop();
+					for(var i = 0; i < $(".classify-con").length; i++) {
+						if($(".classify-con").eq(i).offset()) {
+							if(s > $(".classify-con").eq(i).offset().top - 120) {
+								$(".classify-nav  ul.container li").eq(i).addClass("active").siblings().removeClass("active")
+							}
+						}
+					}
+				};
+				
+				$(".classify-nav  ul.container li ").click(function() {
+					$(this).addClass("active").siblings().removeClass("active");
+					$("html,body").animate({
+						scrollTop: $(".classify-con").eq($(this).index()).offset().top - 30
+					}, 300)
+				})
+			});
+
+
+
+
+
+
+//html 
+<div class="classify-nav">
+			<div class="classify-nav-main">
+				<ul class="container clearfix">
+					<li class="active"><span>运营</span></li>
+					<li><span>加盟</span></li>
+					<li><span>盈利</span></li>
+					<li><span>展现</span></li>
+					<li><span>推广</span></li>
+					<li><span>互动</span></li>
+					<li><span>留存</span></li>
+					<li><span>促销</span></li>
+					<li><span>成交</span></li>
+					<li><span>支付</span></li>
+					<li><span>提醒</span></li>
+					<li><span>商品</span></li>
+					<li><span>对接</span></li>
+					<li><span>数据</span></li>
+				</ul>
+			</div>
+		</div>
+
+
+
+
+	<div id="yunying" class="container classify-con">
+				<h2 class="title wow fadeInUp" data-wow-delay=".2s">多样的加盟模式</h2>
+				<p class="desc wow fadeInUp" data-wow-delay=".4s">打造生态化互联网商业圈，解决从线上到线下的电商营销闭环</p>
+
+				<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+					<li>
+						<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+						<div class="fe">
+							<h3>区域站点加盟</h3>
+							<p>以加盟连锁的方式迅速拓展站点</p>
+
+						</div>
+					</li>
+
+					<li>
+						<div class="fl icon"><i class="iconfont icon-kafei bg-blue"></i></div>
+						<div class="fe">
+							<h3>供货商加盟批发市场</h3>
+							<p>供货商入驻发布的商品在批发市场展示</p>
+
+						</div>
+					</li>
+					<li>
+						<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+						<div class="fe">
+							<h3>第三方商家入驻</h3>
+							<p>商城适用于各行各业的商家入驻</p>
+
+						</div>
+					</li>
+					<li>
+						<div class="fl icon"><i class="iconfont icon-huanyipi1 bg-red"></i></div>
+						<div class="fe">
+							<h3>供货商+零售商</h3>
+							<p>为自营及入驻商家提供货源</p>
+						</div>
+					</li>
+
+				</ul>
+
+				<!--san-->
+				<div id="yunying" class="container classify-con">
+					<h2 class="title wow fadeInUp" data-wow-delay=".2s">多种盈利模式，纵横电商行业</h2>
+					<p class="desc wow fadeInUp" data-wow-delay=".4s">为平台、商家创造更多的盈利点，助力销量提升。</p>
+
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+						<li>
+							<div class="fl icon"><i class="iconfont icon-pengyouquan bg-blue"></i></div>
+							<div class="fe">
+								<h3>站点加盟费+交易佣金</h3>
+								<p>支持多区域，平台方可收取站点加盟费</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaopaidui bg-orange "></i></div>
+							<div class="fe">
+								<h3>供货商平台使用费+交易佣金</h3>
+								<p>批发市场，可招纳供货商入驻</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-kafei bg-green"></i></div>
+							<div class="fe">
+								<h3>零售商平台使用费+交易佣金</h3>
+								<p>商城可招纳不同类型的商家入驻</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-huanyipi1 bg-red"></i></div>
+							<div class="fe">
+								<h3>连锁网点加盟费</h3>
+								<p>商家可向平台付费申请多网点功能</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaoxingxiang1 bg-orange"></i></div>
+							<div class="fe">
+								<h3>云产品库采集费</h3>
+								<p>管理员可控制商家是否允许采集商品</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-rose"></i></div>
+							<div class="fe">
+								<h3>平台广告收入</h3>
+								<p>商城采用广告位竞价策略</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-blue"></i></div>
+							<div class="fe">
+								<h3>自营商品直销盈利</h3>
+								<p>平台直接获得自营商品销售利润</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-rose"></i></div>
+							<div class="fe">
+								<h3>平台竞价排名</h3>
+								<p>根据商家店铺消息的排序收取费用</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-jinrudianpu bg-blue"></i></div>
+							<div class="fe">
+								<h3>O2O上门服务营销</h3>
+								<p>用户准确的定位到附近商家店铺</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-lianjie bg-red"></i></div>
+							<div class="fe">
+								<h3>三级分销模式</h3>
+								<p>以分佣为手段，获取大量客户</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>拼团盈利</h3>
+								<p>可向参与拼团的商家收取一定的利润</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>砍价盈利</h3>
+								<p>通过朋友圈实现裂变效应，吸引众多粉丝</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-jinrudianpu bg-green"></i></div>
+							<div class="fe">
+								<h3>活动回扣</h3>
+								<p>商城组织买家采购，商家支付商城回报</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-lianjie bg-orange"></i></div>
+							<div class="fe">
+								<h3>线上线下活动</h3>
+								<p>线上吸引用户到店，线下用心服务用户</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-kafei bg-blue"></i></div>
+							<div class="fe">
+								<h3>商家会展活动</h3>
+								<p>商城可向商家收取会场活动展位费</p>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<!--四-->
+
+				<div id="yunying" class="container classify-con">
+					<h2 class="title wow fadeInUp" data-wow-delay="0.15s">展现</h2>
+
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>各站点首页</h3>
+								<p>可自定义的各站点展示不同首页</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-kafei bg-blue"></i></div>
+							<div class="fe">
+								<h3>商品列表</h3>
+								<p>商品展示与搜索展示</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>供货商</h3>
+								<p>支持供货商店铺二级域名</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-huanyipi1 bg-red"></i></div>
+							<div class="fe">
+								<h3>店铺首页</h3>
+								<p>可自定义的店铺展示首页</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-rose"></i></div>
+							<div class="fe">
+								<h3>场景专题</h3>
+								<p>全景专题展示，交互效果炫酷</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-orange"></i></div>
+							<div class="fe">
+								<h3>分类导航</h3>
+								<p>商品分门别类，一目了然</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>商品详情</h3>
+								<p>商品详细信息一目了然</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaopaidui bg-orange "></i></div>
+							<div class="fe">
+								<h3>分类导航</h3>
+								<p>商品分门别类，一目了然</p>
+
+							</div>
+						</li>
+					</ul>
+
+				</div>
+
+				<!--5-->
+				<div id="yunying" class="container classify-con">
+					<h2 class="title wow fadeInUp" data-wow-delay="0.15s">推广</h2>
+
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>微信公众号</h3>
+								<p>对接微信公众号，玩转微信生态</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-kafei bg-blue"></i></div>
+							<div class="fe">
+								<h3>消息推送</h3>
+								<p>向客户发送短信、邮件、微信通知</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>带参数二维码</h3>
+								<p>生成不同内容，满足多种场景需求</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-huanyipi1 bg-red"></i></div>
+							<div class="fe">
+								<h3>店铺推广二维码</h3>
+								<p>方便推广店铺，吸纳会员</p>
+
+							</div>
+						</li>
+
+					</ul>
+
+				</div>
+
+				<!--6-->
+				<div id="yunying" class="container classify-con">
+					<h2 class="title wow fadeInUp" data-wow-delay="0.15s">互动</h2>
+
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-rose"></i></div>
+							<div class="fe">
+								<h3>多客服系统</h3>
+								<p>客服自动分流 ，及时响应</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-orange"></i></div>
+							<div class="fe">
+								<h3>分组群发</h3>
+								<p>会员分类，按需发送不同内容</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>短信群发</h3>
+								<p>一站式短信群发</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaopaidui bg-orange "></i></div>
+							<div class="fe">
+								<h3>邮件群发</h3>
+								<p>一站式邮件群发</p>
+
+							</div>
+						</li>
+					</ul>
+
+				</div>
+
+				<!--7-->
+				<div id="yunying" class="container classify-con">
+					<h2 class="title wow fadeInUp" data-wow-delay="0.15s">留存</h2>
+
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-red"></i></div>
+							<div class="fe">
+								<h3>会员等级</h3>
+								<p>通过会员等级，给予会员优惠</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-orange"></i></div>
+							<div class="fe">
+								<h3>标签管理</h3>
+								<p>分组标签管理商品、会员</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>积分管理</h3>
+								<p>自定义积分发放机制</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaopaidui bg-orange "></i></div>
+							<div class="fe">
+								<h3>粉丝管理</h3>
+								<p>管理粉丝信息，分析粉丝行为</p>
+
+							</div>
+						</li>
+					</ul>
+
+				</div>
+
+				<!--8-->
+
+				<div id="yunying" class="container classify-con">
+					<h2 class="title wow fadeInUp" data-wow-delay="0.15s">促销</h2>
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+						<li>
+							<div class="fl icon"><i class="iconfont icon-pengyouquan bg-blue"></i></div>
+							<div class="fe">
+								<h3>红包</h3>
+								<p>支持平台红包和店铺红包</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaopaidui bg-orange "></i></div>
+							<div class="fe">
+								<h3>限时折扣</h3>
+								<p>设置商品限时打折、促销</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-kafei bg-blue"></i></div>
+							<div class="fe">
+								<h3>优惠套餐</h3>
+								<p>不同商品组合售卖，带动消费</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-huanyipi1 bg-red"></i></div>
+							<div class="fe">
+								<h3>赠品促销</h3>
+								<p>购买指定商品，获得对应赠品</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaoxingxiang1 bg-orange"></i></div>
+							<div class="fe">
+								<h3>多人拼团</h3>
+								<p>邀请好友拼团凑单，价格更优</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-rose"></i></div>
+							<div class="fe">
+								<h3>砍价</h3>
+								<p>互动帮砍，拉动粉丝</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>三级分销</h3>
+								<p>以分佣为手段，获取大量客户</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>储值卡</h3>
+								<p>线上添加不同金额的储值卡，线下发放</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-jinrudianpu bg-red"></i></div>
+							<div class="fe">
+								<h3>积分商城</h3>
+								<p>积分隶属于店铺，用于兑换商品和红包</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-lianjie bg-green"></i></div>
+							<div class="fe">
+								<h3>对接收银台</h3>
+								<p>不同站点管理不同区域的业务</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<!--9-->
+
+				<div id="yunying" class="container classify-con">
+					<h2 class="title wow fadeInUp" data-wow-delay="0.15s">成交</h2>
+
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-red"></i></div>
+							<div class="fe">
+								<h3>运费模板</h3>
+								<p>地图画圈设置配送区域运费</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-orange"></i></div>
+							<div class="fe">
+								<h3>订单收银 </h3>
+								<p>直接生成收款页和二维码</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>神码收银</h3>
+								<p>二维码快速支付通道</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaopaidui bg-orange "></i></div>
+							<div class="fe">
+								<h3>积分商城</h3>
+								<p>用积分兑换积分商品</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>多网点</h3>
+								<p>分网点处理订单</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-jinrudianpu bg-red"></i></div>
+							<div class="fe">
+								<h3>打印订单、发货单</h3>
+								<p>可按不同规格尺寸进行打印</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-lianjie bg-green"></i></div>
+							<div class="fe">
+								<h3>网点自提</h3>
+								<p>店铺创建自提点，用户可选择网点自提</p>
+
+							</div>
+						</li>
+					</ul>
+
+				</div>
+
+				<!--10-->
+				<div id="yunying" class="container classify-con">
+
+					<h2 class="title wow fadeInUp" data-wow-delay="0.15s">支付</h2>
+
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-rose"></i></div>
+							<div class="fe">
+								<h3>微信支付</h3>
+								<p>支持微信支付</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-orange"></i></div>
+							<div class="fe">
+								<h3>支付宝</h3>
+								<p>客户可以使用支付宝支付</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>银联</h3>
+								<p>支持银联支付</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaopaidui bg-orange "></i></div>
+							<div class="fe">
+								<h3>余额支付</h3>
+								<p>用户在商城充值金额，来直接付款</p>
+
+							</div>
+						</li>
+					</ul>
+
+				</div>
+				<!--666-->
+
+				<div id="yunying" class="container classify-con">
+					<h2 class="title wow fadeInUp" data-wow-delay="0.15s">提醒</h2>
+
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>语音提醒</h3>
+								<p>消息提醒，语音通知</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-kafei bg-blue"></i></div>
+							<div class="fe">
+								<h3>短信提醒</h3>
+								<p>绑定手机号就可收到消息动态</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>邮箱提醒</h3>
+								<p>绑定邮箱就可收到消息动态</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-huanyipi1 bg-red"></i></div>
+							<div class="fe">
+								<h3>微信提醒</h3>
+								<p>关注平台微信就可收到消息动态</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-rose"></i></div>
+							<div class="fe">
+								<h3>站内信提醒</h3>
+								<p>商之翼自主开发，后台开启即可</p>
+
+							</div>
+						</li>
+
+					</ul>
+
+				</div>
+				<!--11-->
+				<div id="yunying" class="container classify-con">
+					<h2 class="title " data-wow-delay=".2s">商品</h2>
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-huanyipi1 bg-red"></i></div>
+							<div class="fe">
+								<h3>商品导入</h3>
+								<p>全网商品一键铺货，快速上架</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaoxingxiang1 bg-orange"></i></div>
+							<div class="fe">
+								<h3>批量更新商品价格、库存</h3>
+								<p>解决每天商品价格不同的烦恼</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-weixin bg-rose"></i></div>
+							<div class="fe">
+								<h3>详情版式</h3>
+								<p>统一应用，灵活设置</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>数据采集</h3>
+								<p>一键采集，方便，快捷</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>商品发布</h3>
+								<p>3步，发布商品</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-jinrudianpu bg-red"></i></div>
+							<div class="fe">
+								<h3>本地商品库</h3>
+								<p>导入商品简单快速，节省时间</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-lianjie bg-green"></i></div>
+							<div class="fe">
+								<h3>云产品库</h3>
+								<p>轻松导入上万条商品数据</p>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<!--12-->
+
+				<div id="yunying" class="container classify-con">
+					<h2 class="title " data-wow-delay=".2s">对接</h2>
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+						<li>
+							<div class="fl icon"><i class="iconfont icon-pengyouquan bg-blue"></i></div>
+							<div class="fe">
+								<h3>云物流</h3>
+								<p>同城物流配送调度系统</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaopaidui bg-orange "></i></div>
+							<div class="fe">
+								<h3>收银狗</h3>
+								<p>商品数据、订单线上线下统一管理</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-kafei bg-blue"></i></div>
+							<div class="fe">
+								<h3>云ERP</h3>
+								<p>为效率而生的电子商务ERP软件</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>云产品库</h3>
+								<p>云端版商品维护系统</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>阿里云对象存储OSS</h3>
+								<p>图片资源分离部署</p>
+
+							</div>
+						</li>
+
+					</ul>
+				</div>
+				<!--13-->
+				<div id="yunying" class="container classify-con">
+					<h2 class="title " data-wow-delay=".2s">数据</h2>
+					<p class="desc wow fadeInUp" data-wow-delay=".4s"></p>
+					<ul class="function-list equal4 wow fadeInUp" data-wow-delay=".6s">
+						<li>
+							<div class="fl icon"><i class="iconfont icon-pengyouquan bg-blue"></i></div>
+							<div class="fe">
+								<h3>实时成交</h3>
+								<p>交易数据实时发布</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-tianmaoxingxiang1 bg-orange"></i></div>
+							<div class="fe">
+								<h3>商品分析</h3>
+								<p>了解商品售卖情况</p>
+
+							</div>
+						</li>
+
+						<li>
+							<div class="fl icon"><i class="iconfont icon-erweima bg-green"></i></div>
+							<div class="fe">
+								<h3>交易分析</h3>
+								<p>下单情况，交易转化，订单一目了然</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont
+                	icon-diantileimu bg-orange"></i></div>
+							<div class="fe">
+								<h3>流量分析</h3>
+								<p>店铺流量实时监控</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-jinrudianpu bg-red"></i></div>
+							<div class="fe">
+								<h3>会员统计</h3>
+								<p>监控会员购买情况分析</p>
+
+							</div>
+						</li>
+						<li>
+							<div class="fl icon"><i class="iconfont icon-lianjie bg-green"></i></div>
+							<div class="fe">
+								<h3>财务账单</h3>
+								<p>实时了解商城账单明细</p>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

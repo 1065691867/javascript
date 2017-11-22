@@ -1,0 +1,494 @@
+获取数据类型 typeof 
+undefined:访问某个不存在的或未经赋值的变量时就会得到一个 undefined,用typeof 获取类型，得到的也是undefined;
+null:它不能通过javascript的来自动赋值，只能通过代码来完成；
+var i=1+undefined;i=NaN;
+var i=1+null;i=1;
+
+1*undefined=NaN;
+1*null=0;
+
+
+
+
+number 的几个处理数值的方法：
+toFixed();返回的是指定小数的数字的字符串,具体表示具有0到20位小数的数字，超出这个范围的值会引发错误。
+var num=new Number(99);
+alert(num.toFixed(2));//99.00;
+toExponential()指定要输出的小数的位数，结果是科学计数法。
+var num=new Number(99);
+alert(num.toExponential(1));//9.9e+1
+toPrecision();用一个参数表示数字的总数，不包括指数。
+var num=new Number(99);
+alert(num.toPrecision(1))//1e+2,执行了舍入操作
+alert(num.toPrecision(2))//99
+alert(num.toPrecision(3))//99.0
+alert(num.toPrecision(4))//99.00
+toFixed()和toExponential()和toPrecision()方法都会经行舍入操作，以便用正确的小数位数正确的表示一个数。
+
+typeof运算符返回引用类型的存储值会出现一个问题，无论引用的是什么类型的对象，它都返回object。ECMAScript引入了另一个java运算符instanceof来解决这个问题。
+var pp=new String("hello world");
+alert(pp instanceof String);//true
+
+ECMAScript最多不能超过25个参数
+
+array类
+var a=["yellor","green"];
+var b=a.concat("yellow","gray");//将参数添加到a中，返回新的数组
+alert(b.toString());
+alert(a.toStrong())
+
+
+
+/************************函数****************************/
+1函数也是数据，本质上与其他变量并无区别
+function gys(){alert("gys");}
+var gys=function(){alert("gys")}
+typeof gys=====>function
+和变量一样，我们可以对它拷贝给不同的变，甚至删除；
+var sum=function(a,b){return a+b;}
+var add=sum;
+delete sum;
+typeof sum====>undefined
+typeof add====>function
+add(1,2)=======>3;
+
+
+2：匿名函数、回调函数，把函数当做参数传递；
+function gys(a,b){
+return a()+b();
+};
+function one(){return 1;}function two(){return 2;}
+gys(one,two);或者gys(function(){return 1;},function(){return 2})
+
+将函数A传递给函数B,并由B来执行A,A就成了回调函数.
+优势:1在不做命名的情况下传递函数,节省了全局变量;2,函数调用委托给另一个函数,节省代码的编写;3性能更高,不需要到内存中找这个变量;
+
+3自调函数
+  1:不带参数
+(function(){alert("gys");})()
+  2:带参数
+(function(name){alert(name)})("guoyansi");
+
+4返回函数的函数;
+
+function A(){alert("a");
+return function(){alert("b");}
+}
+
+var newfun=A();====>a;
+newfun()====>b;
+
+或A()();
+
+5:重写自己:
+   1  function a(){alert("a");
+return function(){alert("b");}
+}
+a=a();
+a();
+
+   2
+function a(){alert("a");a=function(){alert("b")}}
+a();a();
+
+
+/**************对象************************/
+1..创建对象时,实际上赋予了这个对象一个属性---构造器属性constructor,该属性实际上是一个指向用于创建对象的构造器函数的引用;(函数名),
+function Person(){this.name="guoyansi";}
+var p=new Person();
+alert(p.constructor);
+alert(typeof p.constructor);====>function
+var p1=new p.constructor();
+alert(p1.name);
+
+2...instanceof:指定对象是不是由某个指定的构造器函数所创建的
+function Person(){}
+var p=new Person()
+var obj={};
+p instanceof Person====>true;
+p instanceof Object====>true;
+obj instanceof Object====>true;
+
+3....返回对象的函数
+ 1 function Person(){this.name="guoyansi";}
+var p=new Person();
+p.name====>guoynsi;
+
+ 2 function Person(){this.name="guoyuansi"; return {b:2};}
+var p=new Person();
+p.name====>undefined;
+p.b======>2
+
+解释:只有在函数的返回值是一个对象是才会发生,而当我们企图返回的是一个非对象类型时,该构造器将会照常返回this.
+
+4....对象的比较,引用相等时才能等价;
+    var a={name:"gys"};var b={name:"guoyansi"};
+a===b===>false;
+a==b=====>false;
+
+
+5....内建对象
+   1.数据封装类对象:object,array,boolean,number,string
+   2.工具类对象:math,date,regexp;
+   3.错误类对象:
+
+            /*******object*******/
+object是javascript中所有的对象的父级对象,我们所创建的所有对象都继承于此;
+var 0bj={};//对象文本标石法;
+var obj=new Object();
+            /****array*****/
+var a=[];var a=new Array();
+var a=new Array(1,2,"three");//直接设定元素
+var a=new Array(3);//如果我们传递的是一个数字,该数字就被当做是一个数组的长度.
+数组的长度会随着元素的增多而增多,如果指定了元素个数,并且数值大于当前数组中元素的个数,剩下的那部分会自动创建为undefined;
+  数组的方法:
+     push:会在数组的末尾添加一个新元素,返回的是新数组的长度,
+     pop:移出最后一个元素,返回的是被移出的元素.
+    var a = [1, 2, 3];
+        alert(a.push("new"));
+    sort:排序,
+        var a = ["fd",45,1,35,3,2];
+            var b = a.sort();
+               alert(b);====>[1,2,3,35,45,"fd"];//a,b的应用是相等的;
+
+        var a = [100,45,1,35,3,2];
+            var b = a.sort();
+               alert(b);====>[100,1,2,3,35,45];//个人感觉不准,不建议使用
+    join:将数组拆分成字符串,用相应的字符连接;
+    var a=[1,2,3];
+    a.join("gys")=====>1gys2gys3;
+    slice在不修改数组的情况下,截取数组的中的某个片段;
+    var a = [45, 1, 35, 3, 2];
+        var b = a.slice(1, 3);
+        alert(b);====>[2,35]//包含1,不包含3,
+    splice:会修改目标元素,前2个参数,用于截取数组的片段,尾部参数和slice不一样,,后面的参数用来填补被切除的部分.
+     var a = [45, 1, 35, 3, 2];
+        var b = a.splice(1, 3, "g", "y", "s");
+        alert(a);====>[45,"b","y","s",2];
+    alert(b);=====>[1,35,3];
+
+        /*****Function**********/冷门知识,不做重点讲解;
+function sum(a,b){return a+b;}
+var sum=new Function("a","b"."return a+b");
+        /*********arguments***********/
+function a(){return arguments;}
+a(1,2,3);======>[1,2,3]//"类似"数组的对象,,没有sort等方法,只有索引和长度length;
+arguments有一个callee属性,返回的是函数自身的引用;valueof返回"对象"的自身;
+function a(){return arguments.callee;}
+ (function (count) {
+            if (count < 5) {
+                alert(count);
+                arguments.callee(count);
+            }
+        })(1)//无止境的递归
+
+
+
+
+
+/************************原型*************************************/
+1.....利用原型添加方法和属性
+    1.function Person(name){
+    this.name=name;this.whatAreYou=function(a){return a
+    }
+    2.Prson.prototype.age=23;
+    Person.prototype.study=function(a){return a;}
+    3.Person.prorotype={age:23,study:function(){return this.age;}}
+2....使用原型的方法和属性
+    var p=new Person("guoyansi");
+    p.name=====>guoyansi;
+    p.whatAreYou("gys")===>gys
+    p.age===>23
+    p.study()====>23
+3....原型的驻留概念:由于在js中,对象都是通过传递引用方式来传递的,因此我们所创建的每个新对象的实体中并没有一份属于自己的原型副本.意味着,我们随时可以修改原型,并且与之相关的对象也都会继承这一改变.
+    Person.prototype.get=funciton(what){return this[what];}
+    p.get(name);====>guoyansi
+    虽然p对象在get之前已经被创建了,但是get仍然可以访问p对象中的属性和方法;
+4....访问自身属性和原型属性的原理;
+    上例中的study使用this指针完成的,其实也可以用原型来访问.
+stydy:funciton(){Person.prototype.age;}
+    由什么区别么:当访问某个属性时,先在自己的对象中遍历,如果遍历到了,就立马返回,如果没找到,脚本引擎就到创建当前对象的构造器函数的原型中访问(等价于Person.constructor.prototype),如果找到了 就立马返回该属性值;因此Person.prototype.name要不this.name的效率高很多;
+很纠结的结论:每个对象都有一个构造器,而原型本身也是一个对象,这以为着它必须有一个构造器,而这个构造器又会有自己的原型,
+5...判断属性是来自原型还是来自对象自身;
+hasOwnProperty:对象自身属性,返回true,否则返回false,
+propertyIsEnumerable:感觉和上面没什么区别.
+注意:如果调用来自原型上的某个对象,那么该对象中的属性是可以枚举的;
+Person.prototype.propertyIsEnumerable("get")=====>true;
+6....isPrototypeOf告诉我们当前对象是否是另一个对象的原型;
+var mokey = {};
+        function Person(name) {
+            this.name = name;
+            this.whoAreYou=function(a){return a;}
+        }
+Person.prototype = mokey;
+var p = new Person("guoyansi");
+alert(mokey.isPrototypeOf(p));====>true
+
+
+/****原型陷阱,无法解释*****/
+    function Dog() { }
+        Dog.prototype.say = function () { alert("say"); };
+        var d = new Dog();
+        alert(d.constructor);=====>Dog
+        Dog.prototype = {};
+        var dd = new Dog();
+        alert(dd.constructor);======>指向了 Object,无法解释
+
+解决的方法,
+ function Dog() { }
+        Dog.prototype.say = function () { alert("say"); };
+        var d = new Dog();
+        alert(d.constructor);=====>Dog
+        Dog.prototype = {};
+        Dog.prototype.constructor = Dog;//添加此句话.
+        var dd = new Dog();
+        alert(dd.constructor);=====>Dog
+注意:在重写prototype时,重置相应的constructou属性是一个好习惯;
+
+
+/****************************继承***************************************/
+1.....原型继承
+    function Shape() {
+            this.name = 'shape';
+            this.toString = function () { return this.name; };
+        }
+        function TwoShape() {
+            this.name = '2D shape';
+        }
+        function Triangle(side, height) {
+            this.name = 'Triangle';
+            this.side = side;
+            this.height = height;
+            this.getArea = function () { return this.side * this.height / 2; }
+        }
+        TwoShape.prototype = new Shape();
+        TwoShape.prototype.constructor=TwoShape;
+        Triangle.prototype = new TwoShape();
+        Triangle.prototype.constructor = new Triangle();
+        var my = new Triangle(5, 10);
+        alert(my.getArea());=====>25;
+        alert(my.toString());====>Triangle;,this始终是指向实体对象的,而不执行原型对象.因为 Shape的实体是位于Triangle的原型上,所以最终指向Triangle的实体.
+探究javascript引擎在调用my.toString()时都做了哪些事;
+     1.首先在my对象中遍历所有属性,没有找到,在到原型链中找toString()属性,就是到TwoShape创建的实体中寻找,没找到,继续去原型中去找,同理原型被Shape的实体所覆盖,,就是到Shape中寻找这个方法,最后找到了,立即返回.
+    2.通过instanceof判断my是否是上述三个构造器的实体;
+    alert(my instanceof Shape);=====>true
+        alert(my instanceof TwoShape);=====>true
+        alert(my instanceof Triangle);=====>true
+        alert(my instanceof Array);=====>false
+    3.isPrototypeOf();判断当前对象是否是另一个对象的原型;
+    var a = Shape.prototype.isPrototypeOf(my);alert(a);===>true
+        a = Shape.isPrototypeOf(my);alert(a);====>false
+        a = TwoShape.prototype.isPrototypeOf(my); alert(a);====>true
+        a = TwoShape.isPrototypeOf(my); alert(a);====>false
+        a = Triangle.prototype.isPrototypeOf(my); alert(a);=====>true
+        a = Triangle.isPrototypeOf(my);alert(a);=====>false;
+2....将共享属性迁移到原型中去;
+    function Shape(){this.name='shape';}//每当我们用new Shape()新建对象时,每个实体都会有一个全兴的name属性,并在内存中拥有自己独立的存储空间,这样会出现一些效率低下的情况.
+    function Shape(){} Shape.prototype.name='shape';//将name属性添加到实体所共享的原型对象中去,这样的话,每当我们在用new　Shape()新建对象时,新对象就不在含有属于自己的name属性了,虽然这样做通常会更有效率,但这也只是针对对象实体中的不可变属性而言的,另外这种方式也同样适用于对象中的共享性方法.
+
+
+    function Shape(){}
+    Shape.prototype.name="shape";
+    shape.prototype.toString=function(){return this.name;}
+    
+    function TwoDShape(){}
+    function TwoDShape.prototype=new Shape();
+    TwoDShape.prototype.constructor=TwoDShape;
+    TwoDShape.prototype.name='2D Shape';
+    
+    function Triangle(side,height){this.side=side;this.height=height;}
+    Triangle.prototype=new TwoDShape()
+    Triangle.prototype.constructor=Triangle;
+    Triangle.prototype.getArea=function(){return this.side*this.height;}
+    
+
+
+3....只继承与原型.处于效率的考虑,我们应该尽可能的将一些可重用的属性和方法添加到原型中去.如果形成了一个好习惯,我们仅仅依靠原型就能完成继承关系的构建了.由于原型中的所有代码都是可重用的,这意味着继承自shape.prototype比继承子new shape()所创建的实体要好得多,毕竟,new shape()方式会将shape的属性设定为对象自身属性,这样的代码是不可重用的,
+    function Shape(){}
+    Shape.prototype.toString=function(){return this.name;};
+    function TwoDShape(){};
+    TwoDShape.prototype=Shape.prototype;
+    TwoDShape.prototype.constructor=TwoDShape;
+    TwoDShape.prototype.name='2D shape';
+    function Triangle(side,height){this.side=side;this.height=height;}
+    Triangle.prototype=TwoShape.prototype;
+    Triangle.prototype.constructor=Triangle;
+    Triangle.prototype.name='Triangle';
+    Triangle.prototype.getArea=function(){return this.side*this.height;}//这里最主要的都是引用传递,不是值传递,而且步骤少了,速度更快;
+分析修改前寻找toString的步骤:my实体==>my原型-->twoDShape实体==>TwoDShape原型-->shape实体==>shape原型==>找到toString();
+修改后:my实体==>my原型-->TwoDShape原型-->shape原型==>找到toString();
+问题:这种简单的拷贝原型从效率上来说固然效率更高.由于子对象与父对象指向的是同一个对象,所以一旦子对象对其进行了修改,父对象也会随即被改变,甚至所有的继承关系也是如此.
+Triangle.prototype.name='Triangle';此时Shape.prototype.name的值也会随着改变了.也就是说,当我们再用new Shape()新建对象是,新对象的name也会是"Triangle";
+4.....临时构造器-----new F();打破这种连锁关系;
+    function Shape(){}
+    Shape.prototype.name='shape';
+    Shape.prototype.toString=function(){return this.name;};
+
+    function TwoDShape(){}
+    var F=function(){};
+    F.prototype=Shape.prototype;
+    TwoDShape.prototype=new F();
+    TwoDShape.prototype.constructor=TwoDShape;
+    TwoDShape.prototype.name='2d shape';
+    function Triangle(side,height){this.side=side;this.height=height;}
+    var F=function(){};
+    F.prototype=TwoDShape.prototype;
+    TwoDShape.prototype=new F();
+    Triangle.prototype,constructor=Triangle;
+    Triangle.prototype.name=''Triangle;
+    Triangle.prototype.getArea=function(){return this.side*this.height/2};
+结论:尽量将要共享的属性与方法添加到原型中,然后围绕原型构建继承关系,也就是说,这种主张不鼓励对象的自身属性纳入继承关系,其背后的根源在于如果对象自身属性被设定得太过具体,会令其丧失可重用性.
+
+5...使用uber------子对象访问父对象的方式;
+      function Shape(){}
+    Shape.prototype.name='shape';
+    Shape.prototype.toString = function () {
+        var result = [];
+        if (this.constructor.uber) {
+            result[result.length] = this.constructor.uber.toString();
+        }
+        result[result.length] = this.name;
+        return result.join(', ');
+    };
+
+    function TwoDShape(){}
+    var F=function(){};
+    F.prototype=Shape.prototype;
+    TwoDShape.prototype=new F();
+    TwoDShape.prototype.constructor=TwoDShape;
+    TwoDShape.uber=Shape.prototype;
+    TwoDShape.prototype.name='2d shape';
+
+    function Triangle(side,height){this.side=side;this.height=height;}
+    var F=function(){};
+    F.prototype=TwoDShape.prototype;
+    Triangle.prototype = new F();
+    Triangle.prototype.constructor=Triangle;
+    Triangle.uber=TwoDShape.prototype;
+    Triangle.prototype.name='Triangle';
+    Triangle.prototype.getArea=function(){return this.side*this.height/2};
+
+    var my=new Triangle(5,10);
+    alert(my.toString());====>shape, 2d shape, triangle;
+
+6.....将继承部分封装成函数;
+    var extend = function (Child, Parent) {
+            var F = function () { };
+            F.prototype = Parent.prototype;
+            Child.prototype = new F();
+            Child.prototype.constructor = Child;
+            Child.uber = Parent.prototype;
+        }
+例子:extend(Triangle,Shape);或extend(Triangle,TwoDShape);而这也是YUI库在实现继承关系时所采用的方法YAHOO.lang.extend(Triangle,Shape)
+
+7....属性拷贝,将父对象的属性全部拷贝到子对象的原型中去,
+    function copyShunXing(Child,Parent){
+    var p=Parent.prototype;
+    var c=Child.prototype;
+    for(var i in p){
+        c[i]=p[i];
+        }//此时只是完成了拷贝属性的工作,还不存在任何关系;
+    c.uber=p;
+    }
+这种方式只包含基本数据类型,所有的对象类型(包括函数与数组)都是不可复制的,因为他们只支持引用传递;
+
+比较继承和属性拷贝;
+    var Shape = function () { };
+        var TwoDShape = function () { };
+        Shape.prototype.name = 'shape';
+        Shape.prototype.toString = function () { return this.name; };
+        extend(TwoDShape, Shape);
+        var td = new TwoDShape(TwoDShape, Shape);
+        alert(td.name);===>shape
+        alert(TwoDShape.prototype.name);===>shape
+
+8.....小心处理引用拷贝,
+    var A = function () { }, B = function () { };
+        A.prototype.shuzu = [1, 2];
+        A.prototype.name = 'guoyansi';
+        copyShunXing(B, A);
+        alert(B.prototype.hasOwnProperty('name'));=====>true;
+        alert(B.prototype.shuzu === A.prototype.shuzu);====>true
+        B.prototype.shuzu.push(4, 5, 6);
+        alert(A.prototype.shuzu);=====>1,2,3,5,6;//引用拷贝
+    如果我们用另外一个对象(数组,json,function等)对其B的数组经行重写,事情就完全不一样了..A的shuzu属性会继续引用原对象,而B的shuzu属性则指向了新的对象.
+
+9.....对象之间的继承;
+    function extendCopy(p) {//浅拷贝
+            var c = {};
+            for (var i in p) {
+                c[i] = p[i];
+            }
+            c.uber = p;
+            return c;
+        }
+        var shape = { name: 'shape',
+            toString: function () {
+                return this.name;
+            }
+        };
+        var twoDee = extendCopy(shape);
+        twoDee.name = '2d shape';
+        twoDee.toString = function () { return this.uber.toString() + ',' + this.name; };
+        var triangle = extendCopy(twoDee);
+        triangle.name = 'Triangle';
+        triangle.getArea = function () { return this.side * this.height / 2; };
+        triangle.side = 5; triangle.height = 10;
+        alert(triangle.getArea());====>25;
+     alert(triangle.toString());====>shape,2d shape,triangle;
+
+10.
+    前面的extendCopy是浅拷贝,现在来谈谈深拷贝;
+通过前面的学习,我们知道了当对象的属性被拷贝是,实际上拷贝的只是该对象在内存中的位置指针.在这种情况下,我们修改了拷贝对象,就等同于修改了原对象.而深拷贝则可以帮助我们避免这方面的问题.深拷贝的实现方式和浅拷贝的基本相同,也需要对遍历对象的属性进行拷贝操作.只是在遇到一个对象引用性的属性时,我们需要再次对其调用深拷贝函数.
+    function deepCopy(p, c) {
+            var c = c || {};
+            for (var i in p) {
+                if (typeof p[i] === 'object') {
+                    c[i] = (p[i].constructor === Array) ? [] : {};
+                    deepCopy(p[i], c[i]);
+                }
+                else
+                    c[i] = p[i];
+            }
+            return c;
+        }
+        var parent = { number: [1, 2, 3], letters: ['a', 'b', 'c'], obj: { prop: 1 }, bool: true };
+        var mydeep = deepCopy(parent);
+        var myshallow = extendCopy(parent);
+        mydeep.number.push(4, 5, 6);
+        alert(mydeep.number);====>1,2,3,4,5,6
+        alert(myshallow.number);======>1,2,3
+        myshallow.number.push(10);
+        alert(myshallow.number)====>1,2,3,10
+在jQuery的较新版本中,继承关系的实现通常都会采用深拷贝的形式.
+11.构造器的借用继承
+     function Shape(id) {
+            this.id = id;
+        }
+        Shape.prototype.name = 'shape';
+        Shape.prototype.toString = function () { return this.name; };
+
+        function Triangle() {
+            Shape.apply(this, arguments);
+        }
+        Triangle.prototype.name = 'TRiangle';
+        var t = new Triangle(101);
+        alert(t.id);===>101;继承了构造器中的id属性
+        alert(t.toString());====>[object object];没有继承原型中的属性.
+因为我们没有调用new Shape()创建任何一个实例,自然其原型也从来没有被调用.
+构造器借用的一大优势:当我们创建一个继承于数组或者其他对象类型的子对象时,将获得一个玩玩全全的新值(不是一个引用),对它做任何修改都不会影响其父对象.
+12...借用构造器和原型复制.
+    function Shape(id) {
+            this.id = id;
+        }
+        Shape.prototype.name = 'shape';
+        Shape.prototype.toString = function () { return this.name; };
+
+        function Triangle() {
+            Shape.apply(this, arguments);
+        }
+        copyShunXing(Triangle,Shape);
+        Triangle.prototype.name = 'TRiangle';
+        var t = new Triangle(101);
+        alert(t.id);====>101
+        alert(t.toString());====>TRiangle
